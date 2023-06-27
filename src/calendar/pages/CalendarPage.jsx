@@ -6,25 +6,15 @@ import { CalendarEvent, CalendarModal, Navbar } from '../';
 
 import { localizer, getMessagesES } from '../../helpers';
 import { useState } from 'react';
-import { useUiStore } from '../../auth/hooks';
-
-const events = [{
-  title: 'Cumpleaños del sascuash',
-  note: 'Hay que comprar las kwamas',
-  start: new Date(),
-  end: addHours( new Date(), 2),
-  bgColor: '#fafafa',
-  user: {
-    _id: '123',
-    name: 'Daniel'
-  }
-}]
+import { useUiStore, useCalendarStore } from '../../auth/hooks';
 
 export const CalendarPage = () => {
 
+  const { events } = useCalendarStore();
+  
   const { openDateModal } = useUiStore();
 
-  const [lastView, setLastView] = useState(localStorage.getItem('lastView') || 'week' )
+  const [ lastView, setLastView ] = useState(localStorage.getItem('lastView') || 'week' )
 
   const eventStyleGetter = ( event, start, end, isSelected ) => {
     const style = {
